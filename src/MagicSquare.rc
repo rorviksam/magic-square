@@ -1,0 +1,142 @@
+// Copyright (C) 2011 Nguemo Samobeu Rorvik 
+// All rights reserved.
+
+#include "resource.h"
+
+#define IDM_NEW                   40001
+#define IDM_APP_EXIT              40002
+#define IDM_BEST_TIMES            40003
+
+#define IDM_BEGINNER              0003
+#define IDM_EASY                  0005
+#define IDM_INTERMEDIATE          0007
+#define IDM_HARD                  0009
+#define IDM_EXPERT                0011
+
+#define IDM_APP_ABOUT             40005
+#define IDM_RESET                 40006
+
+#define ICO_ID                    105
+#define ID_EDIT                   333
+#define ID_FORMAT                 334
+
+// Use Xp Style
+1 24 MagicSquare.xml
+//ICON
+ICO_ID ICON DISCARDABLE  "MagicSquare.ico"
+/////////////////////////////////////////////////////////////////////////////
+// Menu
+
+MagicSquare MENU DISCARDABLE // Menu Name = Application Name
+
+BEGIN
+    POPUP "&Game"
+    BEGIN
+        MENUITEM "&New    F2",        IDM_NEW
+        MENUITEM SEPARATOR
+        MENUITEM "&Best Times...",    IDM_BEST_TIMES
+        MENUITEM SEPARATOR
+        MENUITEM "&Reset",            IDM_RESET
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",             IDM_APP_EXIT
+    END
+    POPUP "&Difficulty"
+    BEGIN
+        MENUITEM "&Beginner",         IDM_BEGINNER, CHECKED
+        MENUITEM "&Easy",             IDM_EASY
+        MENUITEM "&Intermediate",     IDM_INTERMEDIATE
+        MENUITEM "&Hard",             IDM_HARD
+        MENUITEM "E&xpert",           IDM_EXPERT
+    END
+    
+    POPUP "&?"
+    BEGIN
+        MENUITEM "&How to...",        IDM_APP_ABOUT
+    END
+END
+/////////////////////////////////////////////////////////////////////////////
+// Dialog
+
+ABOUTBOX DIALOG DISCARDABLE  72, 72, 183, 120
+STYLE  DS_3DLOOK | WS_POPUP 
+CAPTION "ABOUT"
+FONT 9, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK, 66, 104, 50, 14
+
+    ICON   ICO_ID, IDC_STATIC, 77, 9, 21, 20 
+
+    CTEXT  "To win the game fill empty squares with numbers",IDC_STATIC,15, 34, 181, 9
+    
+    CTEXT  "ranging from 1 to range limit provided. The sum of",IDC_STATIC,13, 44, 181, 9 
+     
+    CTEXT  "numbers in each row, column or diagonal must be equal"IDC_STATIC,5, 54, 181, 9
+    
+    CTEXT  "to the Magic number provided. Use a number only once.", IDC_STATIC,6, 65, 181, 9
+    
+    CTEXT  "Your best times shall be recorded, have fun!.",IDC_STATIC,21, 75, 181, 9 
+    
+    CTEXT  "© 2011, Nguemo Samobeu Rorvik.",IDC_STATIC, 32, 94, 176, 8
+END
+
+BESTTIMES DIALOG DISCARDABLE  72, 72, 183, 74
+STYLE  DS_3DLOOK | WS_POPUP 
+CAPTION "BEST TIMES"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK, 65,57,50,14
+    CTEXT    "Beginner       :      %2i: %2i: %2i      %s", IDM_BEGINNER, 15, 5, 181, 9
+    CTEXT    "Easy             :      %2i: %2i: %2i       %s", IDM_EASY, 15, 15, 181, 9
+    CTEXT    "Intermediate  :      %2i: %2i: %2i      %s", IDM_INTERMEDIATE, 15, 25, 181, 9
+    CTEXT    "Hard             :      %2i: %2i: %2i       %s", IDM_HARD, 15, 35, 181, 9
+    CTEXT    "Expert           :      %2i: %2i: %2i      %s", IDM_EXPERT, 15, 45, 181, 9
+END
+
+WINBOX DIALOG DISCARDABLE  104, 82, 120, 100
+STYLE  DS_CONTROL | WS_POPUP | NOT WS_BORDER
+FONT  9, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK, 40, 80, 39, 15
+    CTEXT          "Congratulations ! ", IDC_STATIC, 32, 8, 55, 10
+    CTEXT          "You have the best time", IDC_STATIC, 19, 24, 89, 10  
+    CTEXT          "for the %s level.", ID_FORMAT, 19, 34, 106, 10  
+    CTEXT          "Please, enter your name.",IDC_STATIC, 19, 47, 90, 10    
+    EDITTEXT        ID_EDIT, 16, 59, 87, 12, ES_CENTER 
+END
+
+#define  ID_HELPMSG     62
+#define  ID_WINMSG      63
+
+STRINGTABLE DISCARDABLE
+BEGIN
+   ID_HELPMSG,   "Fill the magic square with numbers ranging from 1 to %i, The Magic number is %i"
+   ID_WINMSG,    "Congratulations!, Magic square completed. Next time, try to be faster to have a record."
+END
+
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILEOS 0x40004
+FILETYPE 0x1
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "CompanyName", "Megachip Engineering"
+      VALUE "FileDescription", "Magic Square Game"
+      VALUE "FileVersion", "1.0.0.0"
+      VALUE "InternalName", "MagicSquare"
+      VALUE "LegalCopyright", "© Samobeu Rorvik. All rights reserved."
+      VALUE "OriginalFilename", "MAGICSQUARE.EXE"
+      VALUE "ProductName", "Magic Square Game"
+      VALUE "ProductVersion", "1.0.0.0"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409 0x04B0
+  END
+END
+
